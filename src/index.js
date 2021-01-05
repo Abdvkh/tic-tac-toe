@@ -4,9 +4,10 @@ import './index.css';
 
 class Square extends React.Component {
     render() {
+        const className = 'square' + (this.props.isPressed ? ' pressed' : '');
         return (
             <button
-                className="square"
+                className={ className }
                 onClick={ () => this.props.onClick() }
             >
                 {this.props.value}
@@ -22,6 +23,7 @@ class Board extends React.Component {
             <Square
                 value={ this.props.squares[i] }
                 onClick={ () => this.props.onClick(i) }
+                isPressed={ this.props.squares[i] !== null }
             />
         );
     };
@@ -108,7 +110,7 @@ class Game extends React.Component {
             const desc = move ? 'Go to move #' + move + ' under ' + row + 'x' + column : 'Go to game start';
 
             return (
-                <li key={move}>
+                <li key={move} className={move === this.state.stepNumber ? 'pressed' : ''}>
                     <button onClick={ ()=> this.jumpTo(move) }>
                         {desc}
                     </button>
