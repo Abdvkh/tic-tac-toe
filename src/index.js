@@ -57,6 +57,8 @@ class Game extends React.Component {
             history: [
                 {
                     squares: Array(9).fill(null),
+                    row: null,
+                    column: null,
                 },
             ],
             stepNumber: 0,
@@ -78,6 +80,8 @@ class Game extends React.Component {
             history: history.concat([
                 {
                     squares: squares,
+                    row: getRow(i),
+                    column: getColumn(i),
                 }
             ]),
             stepNumber: history.length,
@@ -97,8 +101,11 @@ class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
+
         const moves = history.map((step, move) => {
-            const desc = move ? 'Go to move #' + move : 'Go to game start';
+            const row = step.row;
+            const column = step.column;
+            const desc = move ? 'Go to move #' + move + ' under ' + row + 'x' + column : 'Go to game start';
 
             return (
                 <li key={move}>
@@ -155,6 +162,39 @@ function calculateWinner(squares){
 
     return null;
 };
+
+function getRow(index){
+    const tableStructure = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+    ];
+
+    for (let i = 0; i < tableStructure.length; i++){
+        const row = tableStructure[i];
+        if (row.includes(index))
+            return i + 1;
+    }
+}
+
+function getColumn(index){
+    const tableStructure = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+    ];
+
+    for (let i = 0; i < tableStructure.length; i++){
+        const row = tableStructure[i];
+
+        for (let j = 0; j < row.length; j++){
+            const column = tableStructure[i][j];
+
+            if (column === index)
+                return j + 1;
+        }
+    }
+}
 // ========================================
 
 ReactDOM.render(

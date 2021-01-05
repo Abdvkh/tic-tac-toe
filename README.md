@@ -5,6 +5,7 @@ Tic-Tac-Toe game with features:
 * indicates when a player has won the game,
 * stores a game’s history as a game progresses,
 * allows players to review a game’s history and see previous versions of a game’s board.
+* displays the location for each move in the format (col, row) in the move history list.
 
 # Getting Started with Create React App
 
